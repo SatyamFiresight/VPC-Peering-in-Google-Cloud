@@ -8,69 +8,71 @@ This project demonstrates how to establish **private communication between two i
 ---
 
 ## 🧱 Architecture
+
 ![VPC Peering Architecture](./architecture/vpc-peering-architecture.png)
 
----
+### 🔍 Architecture Explanation
 
-## 🎯 Objectives
-- Create custom VPC networks in separate projects  
-- Deploy VM instances in isolated environments  
-- Establish secure VPC Peering  
-- Validate private connectivity using ICMP  
+This architecture establishes **private communication between two isolated VPC networks across different projects** using VPC Network Peering.
 
----
+### 🧩 Components
 
-## ⚙️ Tech Stack
-- **Cloud Provider:** Google Cloud Platform  
-- **Services Used:**
-  - VPC Networks  
-  - Compute Engine  
-  - Firewall Rules  
-  - Cloud Shell  
+- **Project A**
+  - Custom VPC: `network-a`
+  - Subnet: `10.0.0.0/16`
+  - VM Instance: `vm-a`
 
----
+- **Project B**
+  - Custom VPC: `network-b`
+  - Subnet: `10.8.0.0/16`
+  - VM Instance: `vm-b`
 
-## 🛠️ Implementation Steps
-
-### 1. Create Networks
-- Custom VPC in Project A  
-- Custom VPC in Project B  
-
-### 2. Deploy Resources
-- VM instances in both networks  
-- Firewall rules for SSH + ICMP  
-
-### 3. Configure Peering
-- Peer A → B  
-- Peer B → A  
-
-### 4. Validate Connectivity
-- Ping between internal IPs  
+- **VPC Peering**
+  - Peer connection: `peer-ab` and `peer-ba`
+  - Enables bidirectional communication using **internal IPs only**
 
 ---
 
-## 📊 Results
-| Test | Result |
-|------|--------|
-| Peering Status | ✅ ACTIVE |
-| VM Communication | ✅ Success |
-| Packet Loss | 0% |
+### 🔄 Traffic Flow
+
+1. VM in Project B sends request to internal IP of VM in Project A  
+2. Traffic stays within Google’s private network  
+3. Routing tables exchange CIDR blocks automatically  
+4. No public internet involvement  
 
 ---
 
-## 🔐 Key Benefits
+### 🔐 Security Design
+
 - No public IP exposure  
-- Reduced latency  
-- Lower cost vs VPN  
-- Secure internal communication  
+- Communication via private IP ranges  
+- Firewall rules restrict access (SSH + ICMP only)  
 
 ---
 
-## ⚠️ Challenges
-- Peering requires **bi-directional setup**  
-- Firewall rules must allow ICMP  
-- Routes are auto-generated  
+### ⚡ Key Design Decisions
 
+| Decision | Reason |
+|---------|--------|
+| VPC Peering instead of VPN | Lower latency & no encryption overhead |
+| Separate Projects | Isolation & multi-team architecture |
+| Internal IP Communication | Enhanced security |
+
+---
+
+### ⚠️ Limitations
+
+- ❌ No transitive peering  
+- ❌ Overlapping CIDR blocks not allowed  
+- ❌ No centralized hub routing  
+
+---
+
+### 💡 Real-World Use Case
+
+- SaaS provider exposing services privately to client VPCs  
+- Multi-team architecture within large organizations  
+- Mergers where separate networks need secure integration  
 ---
 
 ## 💡 Future Improvements
