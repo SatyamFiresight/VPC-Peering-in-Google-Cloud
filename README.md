@@ -7,16 +7,16 @@ This project demonstrates how to establish **private communication between two i
 
 ---
 
+## 🧱 Architecture
+![VPC Peering Architecture](./architecture/vpc-peering-architecture.png)
+
+---
+
 ## 🎯 Objectives
 - Create custom VPC networks in separate projects  
 - Deploy VM instances in isolated environments  
 - Establish secure VPC Peering  
 - Validate private connectivity using ICMP  
-
----
-
-## 🧱 Architecture
-![Architecture Diagram](./architecture/architecture-diagram.png)
 
 ---
 
