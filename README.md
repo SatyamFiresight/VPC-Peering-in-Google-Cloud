@@ -127,10 +127,12 @@ ping 10.0.0.2
 
 ## 🎯 Result
 
-✔ Successful private communication between VMs across projects
-✔ No public internet used
-✔ Routing handled via VPC peering
-✔ Secure connectivity enforced via firewall rules
+## 🎯 Result
+
+✔ **Private VM-to-VM communication established across projects**  
+✔ **No public internet exposure (secure internal traffic only)**  
+✔ **Dynamic routing achieved using VPC peering**  
+✔ **Firewall rules enforced for controlled access**
 
 ---
 
