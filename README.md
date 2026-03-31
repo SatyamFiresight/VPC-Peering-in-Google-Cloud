@@ -1,81 +1,170 @@
-# 🚀 Multi-Project VPC Peering in Google Cloud
-
----
+# 🌐 VPC Peering in Google Cloud (GCP)
 
 ## 📌 Overview
-This project demonstrates how to establish **private communication between two isolated VPC networks across different projects** using VPC Network Peering.
+
+This project demonstrates **VPC Network Peering between two separate Google Cloud projects**, enabling private communication between resources without using public IPs.
 
 ---
 
-## 🧱 Architecture
+## 🏗️ Architecture
 
-![VPC Peering Architecture](./architecture/vpc-peering-architecture.png)
-
-### 🔍 Architecture Explanation
-
-This architecture establishes **private communication between two isolated VPC networks across different projects** using VPC Network Peering.
-
-### 🧩 Components
-
-- **Project A**
-  - Custom VPC: `network-a`
-  - Subnet: `10.0.0.0/16`
-  - VM Instance: `vm-a`
-
-- **Project B**
-  - Custom VPC: `network-b`
-  - Subnet: `10.8.0.0/16`
-  - VM Instance: `vm-b`
-
-- **VPC Peering**
-  - Peer connection: `peer-ab` and `peer-ba`
-  - Enables bidirectional communication using **internal IPs only**
+![Architecture](architecture/vpc-peering-architecture.png)
 
 ---
 
-### 🔄 Traffic Flow
+## 🧠 Key Concepts Covered
 
-1. VM in Project B sends request to internal IP of VM in Project A  
-2. Traffic stays within Google’s private network  
-3. Routing tables exchange CIDR blocks automatically  
-4. No public internet involvement  
-
----
-
-### 🔐 Security Design
-
-- No public IP exposure  
-- Communication via private IP ranges  
-- Firewall rules restrict access (SSH + ICMP only)  
+* VPC Network Peering (cross-project)
+* Custom VPC networks
+* Subnet configuration
+* Firewall rules (ICMP + SSH)
+* Route propagation via peering
+* Private VM-to-VM communication
 
 ---
 
-### ⚡ Key Design Decisions
+## ⚙️ Environment Details
 
-| Decision | Reason |
-|---------|--------|
-| VPC Peering instead of VPN | Lower latency & no encryption overhead |
-| Separate Projects | Isolation & multi-team architecture |
-| Internal IP Communication | Enhanced security |
-
----
-
-### ⚠️ Limitations
-
-- ❌ No transitive peering  
-- ❌ Overlapping CIDR blocks not allowed  
-- ❌ No centralized hub routing  
+| Component    | Network A                    | Network B                    |
+| ------------ | ---------------------------- | ---------------------------- |
+| Project ID   | qwiklabs-gcp-02-07e61c8e8fe2 | qwiklabs-gcp-01-cc82102d8396 |
+| VPC Network  | network-a                    | network-b                    |
+| Subnet Range | 10.0.0.0/16                  | 10.8.0.0/16                  |
+| VM Instance  | vm-a (10.0.0.2)              | vm-b (10.8.0.2)              |
 
 ---
 
-### 💡 Real-World Use Case
+## 🔧 Setup Steps
 
-- SaaS provider exposing services privately to client VPCs  
-- Multi-team architecture within large organizations  
-- Mergers where separate networks need secure integration  
+### 1. Create VPC Networks
+
+* Created two custom mode VPCs:
+
+  * `network-a`
+  * `network-b`
+
+📸
+![VPC Networks](screenshots/vpc-networks.png)
+
 ---
 
-## 💡 Future Improvements
-- Terraform automation  
-- Multi-region setup  
-- Monitoring with Cloud Logging  
+### 2. Configure Subnets
+
+* network-a → `10.0.0.0/16`
+* network-b → `10.8.0.0/16`
+
+📸
+![Subnets](screenshots/subnets.png)
+
+---
+
+### 3. Create Firewall Rules
+
+* Allowed:
+
+  * SSH (`tcp:22`)
+  * ICMP (ping)
+
+📸
+![Firewall Rules](screenshots/firewall-rules.png)
+
+---
+
+### 4. Configure VPC Peering
+
+* Peering established in both directions:
+
+  * A → B
+  * B → A
+* Status: **Active**
+
+📸
+![Peering](screenshots/peering-active.png)
+
+---
+
+### 5. Verify Routes
+
+* Peering routes automatically created
+* Verified:
+
+  * 10.0.0.0/16
+  * 10.8.0.0/16
+
+📸
+![Routes](screenshots/routes.png)
+
+---
+
+### 6. Deploy VM Instances
+
+* vm-a → network-a
+* vm-b → network-b
+
+📸
+![VM Instances](screenshots/vm-instances.png)
+
+---
+
+## ✅ Connectivity Testing
+
+### 🔁 Ping from Network A → Network B
+
+```bash
+ping 10.8.0.2
+```
+
+📸
+![Ping A to B](screenshots/ping-success-a-to-b.png)
+
+---
+
+### 🔁 Ping from Network B → Network A
+
+```bash
+ping 10.0.0.2
+```
+
+📸
+![Ping B to A](screenshots/ping-success-b-to-a.png)
+
+---
+
+## 🎯 Result
+
+✔ Successful private communication between VMs across projects
+✔ No public internet used
+✔ Routing handled via VPC peering
+✔ Secure connectivity enforced via firewall rules
+
+---
+
+## 📁 Project Structure
+
+```
+.
+├── architecture/
+├── screenshots/
+├── setup/
+├── validation/
+└── README.md
+```
+
+---
+
+## 🚀 Key Takeaways
+
+* VPC Peering enables **low-latency private communication**
+* Works across **different projects**
+* Requires:
+
+  * Non-overlapping CIDR ranges
+  * Firewall configuration
+  * Route propagation
+* No transitive peering (important limitation)
+
+---
+
+## 📌 Author
+
+Satyam
