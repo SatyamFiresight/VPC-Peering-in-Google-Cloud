@@ -34,12 +34,11 @@ This project demonstrates **VPC Network Peering between two separate Google Clou
 
 ---
 
-## 🔧 Setup Steps
+## 🔧 Implementation Steps
 
 ### 1. Create VPC Networks
 
-* Created two custom mode VPCs:
-
+Two custom VPC networks were created in separate projects.
   * `network-a`
   * `network-b`
 
@@ -50,9 +49,9 @@ This project demonstrates **VPC Network Peering between two separate Google Clou
 
 ### 2. Configure Subnets
 
+Each VPC was assigned a non-overlapping CIDR range.
 * network-a → `10.0.0.0/16`
 * network-b → `10.8.0.0/16`
-
 
 ![Subnets](screenshots/subnets.png)
 
@@ -60,23 +59,22 @@ This project demonstrates **VPC Network Peering between two separate Google Clou
 
 ### 3. Create Firewall Rules
 
-* Allowed:
-
+* Allowed traffic:
   * SSH (`tcp:22`)
   * ICMP (ping)
 
-📸
 ![Firewall Rules](screenshots/firewall-rules.png)
 
 ---
 
 ### 4. Configure VPC Peering
 
-* Peering established in both directions:
+* Peering was configured in both directions:
 
-  * A → B
-  * B → A
-* Status: **Active**
+- Network A → Network B
+- Network B → Network A
+
+Status: **Active**
 
 ![Peering](screenshots/peering-active.png)
 
