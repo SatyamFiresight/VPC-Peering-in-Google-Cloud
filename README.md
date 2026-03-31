@@ -43,7 +43,7 @@ This project demonstrates **VPC Network Peering between two separate Google Clou
   * `network-a`
   * `network-b`
 
-📸
+
 ![VPC Networks](screenshots/vpc-networks.png)
 
 ---
@@ -53,7 +53,7 @@ This project demonstrates **VPC Network Peering between two separate Google Clou
 * network-a → `10.0.0.0/16`
 * network-b → `10.8.0.0/16`
 
-📸
+
 ![Subnets](screenshots/subnets.png)
 
 ---
@@ -78,7 +78,6 @@ This project demonstrates **VPC Network Peering between two separate Google Clou
   * B → A
 * Status: **Active**
 
-📸
 ![Peering](screenshots/peering-active.png)
 
 ---
@@ -91,7 +90,6 @@ This project demonstrates **VPC Network Peering between two separate Google Clou
   * 10.0.0.0/16
   * 10.8.0.0/16
 
-📸
 ![Routes](screenshots/routes.png)
 
 ---
@@ -101,7 +99,6 @@ This project demonstrates **VPC Network Peering between two separate Google Clou
 * vm-a → network-a
 * vm-b → network-b
 
-📸
 ![VM Instances](screenshots/vm-instances.png)
 
 ---
@@ -114,7 +111,6 @@ This project demonstrates **VPC Network Peering between two separate Google Clou
 ping 10.8.0.2
 ```
 
-📸
 ![Ping A to B](screenshots/ping-success-a-to-b.png)
 
 ---
@@ -125,7 +121,6 @@ ping 10.8.0.2
 ping 10.0.0.2
 ```
 
-📸
 ![Ping B to A](screenshots/ping-success-b-to-a.png)
 
 ---
