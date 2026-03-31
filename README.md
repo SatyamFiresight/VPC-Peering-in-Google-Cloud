@@ -127,8 +127,6 @@ ping 10.0.0.2
 
 ## 🎯 Result
 
-## 🎯 Result
-
 ✔ **Private VM-to-VM communication established across projects**  
 ✔ **No public internet exposure (secure internal traffic only)**  
 ✔ **Dynamic routing achieved using VPC peering**  
